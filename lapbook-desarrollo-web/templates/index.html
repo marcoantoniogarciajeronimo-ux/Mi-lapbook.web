@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lapbook de Desarrollo Web</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background-color: #1a1a2e; color: white; padding: 20px; line-height: 1.6; }
+        .contenedor { max-width: 800px; margin: 0 auto; }
+
+        .portada {
+            background: #16213e;
+            padding: 40px;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .portada h1 { font-size: 2em; margin-bottom: 10px; color: #00d9ff; }
+        .portada p { color: #aaa; margin-bottom: 30px; }
+
+        button {
+            background: #00a8cc;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover { background: #0088a9; }
+
+        .contenido { display: none; }
+        .encabezado {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        .encabezado h2 { color: #00d9ff; }
+
+        .tarjeta {
+            background: #16213e;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .tarjeta-titulo {
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .tarjeta-html { background: #c0392b; }
+        .tarjeta-css { background: #2980b9; }
+        .tarjeta-javascript { background: #f39c12; color: #222; }
+        .tarjeta-sql { background: #16a085; }
+        .tarjeta-jinja2 { background: #8e44ad; }
+
+        .tarjeta-contenido {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .tarjeta-contenido.abierto {
+            padding: 20px;
+            max-height: 2000px;
+        }
+        .tarjeta-contenido p { margin-bottom: 15px; color: #ddd; font-size: 1em; }
+        .tarjeta-contenido ul { margin-left: 20px; margin-bottom: 15px; color: #ccc; }
+        .tarjeta-contenido li { margin-bottom: 8px; }
+
+        .seccion-final {
+            background: #16213e;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        .seccion-final h2 { text-align: center; color: #00d9ff; margin-bottom: 20px; }
+        .pregunta { font-size: 1.1em; margin-bottom: 15px; }
+        .opcion {
+            background: #1a1a2e;
+            border: 1px solid #444;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .opcion:hover { border-color: #00d9ff; }
+        .correcta { background: #1a4d2e; border-color: #27ae60; }
+        .incorrecta { background: #4d1a1a; border-color: #e74c3c; }
+        .mensaje { margin-top: 10px; font-weight: bold; }
+        .siguiente { margin-top: 10px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <!-- PORTADA -->
+        <div class="portada" id="portada">
+            <h1>💻 Lapbook Interactivo</h1>
+            <h2>Fundamentos del Desarrollo Web</h2>
+            <p>HTML · CSS · JavaScript · SQL · Jinja2</p>
+            <button onclick="abrir()">📖 Abrir Lapbook</button>
+        </div>
+
+        <!-- CONTENIDO CONCEPTOS -->
+        <div class="contenido" id="contenido">
+            <div class="encabezado">
+                <h2>📚 Mis Conceptos</h2>
+                <button onclick="cerrar()">✖ Cerrar</button>
+            </div>
+
+            <!-- HTML -->
+            <div class="tarjeta">
+                <div class="tarjeta-titulo tarjeta-html" onclick="mostrar('html')">
+                    <span>📄 HTML</span>
+                    <span id="signo-html">+</span>
+                </div>
+                <div class="tarjeta-contenido" id="texto-html">
+                    <p><strong>¿Qué es?</strong></p>
+                    <p>HTML significa Lenguaje de Marcado de Hipertexto. Es el esqueleto de cualquier página web. Con él creas la estructura: títulos, párrafos, imágenes, enlaces y listas. Sin HTML no hay contenido que mostrar.</p>
+                    <p><strong>Puntos importantes:</strong></p>
+                    <ul>
+                        <li>Es el lenguaje base de todas las páginas web</li>
+                        <li>Usa etiquetas como &lt;h1&gt;, &lt;p&gt;, &lt;img&gt; y &lt;a&gt;</li>
+                        <li>Define qué contenido aparece y en qué orden</li>
+                        <li>No es un lenguaje de programación, sino de marcado</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CSS -->
+            <div class="tarjeta">
+                <div class="tarjeta-titulo tarjeta-css" onclick="mostrar('css')">
+                    <span>🎨 CSS</span>
+                    <span id="signo-css">+</span>
+                </div>
+                <div class="tarjeta-contenido" id="texto-css">
+                    <p><strong>¿Qué es?</strong></p>
+                    <p>CSS significa Hojas de Estilo en Cascada. Se encarga de la apariencia visual: colores, fuentes, tamaños, márgenes y cómo se organizan los elementos en pantalla. Es lo que hace que tu página se vea bonita y ordenada.</p>
+                    <p><strong>Puntos importantes:</strong></p>
+                    <ul>
+                        <li>Da color, diseño y estilo a lo que creaste con HTML</li>
+                        <li>Permite que tu página se vea bien en celular y computadora</li>
+                        <li>Separa el contenido de su apariencia visual</li>
+                        <li>Facilita mantener el mismo estilo en todo tu sitio</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- JavaScript -->
+            <div class="tarjeta">
+                <div class="tarjeta-titulo tarjeta-javascript" onclick="mostrar('javascript')">
+                    <span>⚡ JavaScript</span>
+                    <span id="signo-javascript">+</span>
+                </div>
+                <div class="tarjeta-contenido" id="texto-javascript">
+                    <p><strong>¿Qué es?</strong></p>
+                    <p>JavaScript es el lenguaje de programación del navegador. Le da vida a tu página: puedes hacer que algo cambie al dar clic, validar formularios, crear animaciones y mucho más.</p>
+                    <p><strong>Puntos importantes:</strong></p>
+                    <ul>
+                        <li>Agrega interactividad: cuando el usuario hace algo, la página responde</li>
+                        <li>Es el único lenguaje que funciona directamente en el navegador</li>
+                        <li>Permite crear efectos, juegos y aplicaciones completas</li>
+                        <li>Junto con HTML y CSS, forma el trío fundamental de la web</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SQL -->
+            <div class="tarjeta">
+                <div class="tarjeta-titulo tarjeta-sql" onclick="mostrar('sql')">
+                    <span>🗄️ SQL</span>
+                    <span id="signo-sql">+</span>
+                </div>
+                <div class="tarjeta-contenido" id="texto-sql">
+                    <p><strong>¿Qué es?</strong></p>
+                    <p>SQL significa Lenguaje de Consulta Estructurado. Sirve para comunicarte con las bases de datos: guardas información, la buscas, la actualizas y la eliminas. Es como un archivador digital muy rápido y organizado.</p>
+                    <p><strong>Puntos importantes:</strong></p>
+                    <ul>
+                        <li>Permite guardar y recuperar información de forma ordenada</li>
+                        <li>Se usa en sistemas como MySQL, PostgreSQL y SQLite</li>
+                        <li>Organiza la información en tablas con filas y columnas</li>
+                        <li>Es indispensable para aplicaciones que guardan datos de usuarios</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Jinja2 -->
+            <div class="tarjeta">
+                <div class="tarjeta-titulo tarjeta-jinja2" onclick="mostrar('jinja2')">
+                    <span>🌹 Jinja2</span>
+                    <span id="signo-jinja2">+</span>
+                </div>
+                <div class="tarjeta-contenido" id="texto-jinja2">
+                    <p><strong>¿Qué es?</strong></p>
+                    <p>Jinja2 es un motor de plantillas para Python. Funciona como un puente: permite que la información de tu programa Python aparezca automáticamente en tu página web sin tener que escribirla una por una.</p>
+                    <p><strong>Puntos importantes:</strong></p>
+                    <ul>
+                        <li>Conecta tu código Python con tu página web</li>
+                        <li>Muestra información que cambia sin tener que editar el HTML</li>
+                        <li>Funciona perfectamente con Flask</li>
+                        <li>Hace que crear páginas dinámicas sea mucho más fácil</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CUESTIONARIO -->
+            <div class="seccion-final">
+                <h2>🧠 ¿Qué aprendiste?</h2>
+                <p class="pregunta" id="pregunta"></p>
+                <div id="opciones"></div>
+                <p class="mensaje" id="mensaje"></p>
+                <button class="siguiente" id="btn-siguiente" onclick="siguiente()">➡️ Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Abrir y cerrar portada
+        function abrir() {
+            document.getElementById('portada').style.display = 'none';
+            document.getElementById('contenido').style.display = 'block';
+        }
+        function cerrar() {
+            document.getElementById('portada').style.display = 'block';
+            document.getElementById('contenido').style.display = 'none';
+        }
+
+        // Mostrar y ocultar cada concepto
+        function mostrar(nombre) {
+            const texto = document.getElementById('texto-' + nombre);
+            const signo = document.getElementById('signo-' + nombre);
+            if (texto.classList.contains('abierto')) {
+                texto.classList.remove('abierto');
+                signo.textContent = '+';
+            } else {
+                texto.classList.add('abierto');
+                signo.textContent = '−';
+            }
+        }
+
+        // Cuestionario
+        const preguntas = [
+            {p: "¿Qué lenguaje da estructura a las páginas web?", o: ["CSS", "HTML", "JavaScript", "SQL"], r: 1},
+            {p: "¿Qué se encarga de los colores y el diseño?", o: ["HTML", "CSS", "SQL", "Python"], r: 1},
+            {p: "¿Qué agrega interactividad cuando das clic?", o: ["HTML", "CSS", "JavaScript", "Jinja2"], r: 2},
+            {p: "¿Qué sirve para guardar información en bases de datos?", o: ["SQL", "HTML", "CSS", "JavaScript"], r: 0},
+            {p: "¿Qué conecta Python con tu página web?", o: ["HTML", "SQL", "Jinja2", "CSS"], r: 2}
+        ];
+        let actual = 0;
+
+        function cargarPregunta() {
+            if (actual >= preguntas.length) {
+                document.getElementById('pregunta').textContent = '🎉 ¡Felicidades! Terminaste el cuestionario.';
+                document.getElementById('opciones').innerHTML = '';
+                document.getElementById('mensaje').textContent = '';
+                document.getElementById('btn-siguiente').style.display = 'none';
+                return;
+            }
+            const q = preguntas[actual];
+            document.getElementById('pregunta').textContent = (actual+1) + '. ' + q.p;
+            const opts = document.getElementById('opciones');
+            opts.innerHTML = '';
+            q.o.forEach((texto, i) => {
+                const div = document.createElement('div');
+                div.className = 'opcion';
+                div.textContent = String.fromCharCode(65+i) + '. ' + texto;
+                div.onclick = () => elegir(i);
+                opts.appendChild(div);
+            });
+            document.getElementById('mensaje').textContent = '';
+            document.getElementById('btn-siguiente').style.display = 'none';
+        }
+
+        function elegir(indice) {
+            const q = preguntas[actual];
+            const opts = document.querySelectorAll('.opcion');
+            opts.forEach(o => o.style.pointerEvents = 'none');
+            if (indice === q.r) {
+                opts[indice].classList.add('correcta');
+                document.getElementById('mensaje').textContent = '✅ ¡Correcto!';
+            } else {
+                opts[indice].classList.add('incorrecta');
+                opts[q.r].classList.add('correcta');
+                document.getElementById('mensaje').textContent = '❌ Incorrecto. Inténtalo de nuevo.';
+            }
+            document.getElementById('btn-siguiente').style.display = 'inline-block';
+        }
+
+        function siguiente() {
+            actual++;
+            cargarPregunta();
+        }
+
+        // Iniciar cuestionario al cargar la página
+        cargarPregunta();
+    </script>
+</body>
+</html>
+
